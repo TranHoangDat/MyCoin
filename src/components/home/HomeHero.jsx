@@ -1,0 +1,69 @@
+import { Box, Stack, styled, Typography } from "@mui/material";
+import { useState } from "react";
+import ContainedButton from "../buttons/ContainedButton";
+import OutlinedButton from "../buttons/OutlinedButton";
+import CreateWalletModal from "../modals/create-wallet-modal/CreateWalletModal";
+import HomeHeroImage from "./HomeHeroImage";
+
+const Wrapper = styled(({ ...props }) => <Box {...props} />)({
+  width: "100%",
+  height: "800px",
+  backgroundColor: "#184f90",
+  backgroundImage: "url('./images/home/bg-homepage.49974364.svg')",
+});
+
+const Container = styled(({ ...props }) => <Stack {...props} />)({
+  maxWidth: "1185px",
+  height: "100%",
+  padding: "12px",
+  margin: "0 auto",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
+export default function HomeHero() {
+  const [isCreateWalletModalOpen, setIsCreateWalletModalOpen] = useState(false);
+  const handleOpenCreateWalletModal = () => setIsCreateWalletModalOpen(true);
+  const handleCloseCreateWalletModal = () => setIsCreateWalletModalOpen(false);
+
+  return (
+    <Wrapper>
+      <Container>
+        <Box>
+          <Box
+            sx={{
+              maxWidth: "430px",
+            }}
+          >
+            <Typography fontSize="43px" color="white" fontWeight={700}>
+              Ethereum's Original Wallet
+            </Typography>
+            <Typography fontSize="14px" color="white" marginTop={1.5}>
+              MEW (MyEtherWallet) is a free, client-side interface helping you
+              interact with the Ethereum blockchain. Our easy-to-use,
+              open-source platform allows you to generate wallets, interact with
+              smart contracts, and so much more.
+            </Typography>
+          </Box>
+          <Stack flexDirection="row" marginTop={4}>
+            <ContainedButton
+              style={{
+                marginRight: "10px",
+              }}
+              onClick={handleOpenCreateWalletModal}
+            >
+              Create a new wallet
+            </ContainedButton>
+            <CreateWalletModal
+              open={isCreateWalletModalOpen}
+              handleClose={handleCloseCreateWalletModal}
+            />
+            <OutlinedButton>Access my wallet</OutlinedButton>
+          </Stack>
+        </Box>
+        <HomeHeroImage />
+      </Container>
+    </Wrapper>
+  );
+}
