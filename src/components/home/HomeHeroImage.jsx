@@ -6,8 +6,7 @@ export default function HomeHeroImage() {
       sx={{
         width: "513px",
         height: "500px",
-        backgroundImage:
-          "url('./images/home/bg-home-spaceman-and-dog.313ea5b0.svg')",
+        backgroundImage: "url('./images/home/bg-home-spaceman-and-dog.svg')",
         backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
       }}

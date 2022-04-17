@@ -1,5 +1,6 @@
 import { Box, Stack, styled, Typography } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ContainedButton from "../buttons/ContainedButton";
 import OutlinedButton from "../buttons/OutlinedButton";
 import CreateWalletModal from "../modals/create-wallet-modal/CreateWalletModal";
@@ -9,7 +10,7 @@ const Wrapper = styled(({ ...props }) => <Box {...props} />)({
   width: "100%",
   height: "800px",
   backgroundColor: "#184f90",
-  backgroundImage: "url('./images/home/bg-homepage.49974364.svg')",
+  backgroundImage: "url('./images/home/bg-homepage.svg')",
 });
 
 const Container = styled(({ ...props }) => <Stack {...props} />)({
@@ -23,9 +24,13 @@ const Container = styled(({ ...props }) => <Stack {...props} />)({
 });
 
 export default function HomeHero() {
+  const navigate = useNavigate();
   const [isCreateWalletModalOpen, setIsCreateWalletModalOpen] = useState(false);
   const handleOpenCreateWalletModal = () => setIsCreateWalletModalOpen(true);
-  const handleCloseCreateWalletModal = () => setIsCreateWalletModalOpen(false);
+  const handleCloseCreateWalletModal = () => {
+    setIsCreateWalletModalOpen(false);
+    navigate("/", { replace: "true" });
+  };
 
   return (
     <Wrapper>

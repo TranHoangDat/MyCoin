@@ -6,23 +6,60 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function CreateWalletModalSelectionCard() {
+const cardStyle = {
+  height: "160px",
+  border: "1px solid rgb(242, 243, 246)",
+  borderRadius: "10px",
+  textTransform: "capitalize",
+  boxShadow: "none",
+};
+
+const cardActionAreaStyle = {
+  height: "100%",
+  display: "flex",
+  flexDirection: "row-reverse",
+  padding: "0 20px",
+
+  "&:hover, &:focus": {
+    backgroundColor: "rgba(242, 243, 246, .08)",
+  },
+};
+
+const cardMediaStyle = {
+  width: "64px",
+  height: "64px",
+  margin: "0 16px",
+};
+
+const cardContentStyle = {
+  maxWidth: "406px",
+  padding: 0,
+  textAlign: "start",
+  textTransform: "capitalize",
+};
+
+export default function CreateWalletModalSelectionCard({
+  imagePath,
+  imageAlt,
+  title,
+  description,
+  onClick,
+}) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card sx={cardStyle}>
+      <CardActionArea sx={cardActionAreaStyle} onClick={onClick}>
         <CardMedia
+          sx={cardMediaStyle}
           component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image={imagePath}
+          alt={imageAlt}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
+        <CardContent sx={cardContentStyle}>
+          <Typography gutterBottom fontSize="20px" fontWeight={700}>
+            {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography variant="body2" fontWeight={500}>
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
