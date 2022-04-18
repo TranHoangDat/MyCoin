@@ -1,4 +1,4 @@
-import CreateWalletModalStepper from "../CreateWalletModalStepper";
+import ModalStepper from "../../ModalStepper";
 import CreateWalletWellDoneStep from "../CreateWalletWellDoneStep";
 import CreatePasswordStep from "./CreatePasswordStep";
 import DownloadKeystoreFileStep from "./DownloadKeystoreFileStep";
@@ -15,8 +15,6 @@ const stepComponents = [
   <CreateWalletWellDoneStep />,
 ];
 
-export default function CreateWalletUsingKeystoreStepper() {
-  return (
-    <CreateWalletModalStepper steps={steps} stepComponents={stepComponents} />
-  );
+export default function CreateWalletUsingKeystore() {
+  return <ModalStepper steps={steps} stepComponents={stepComponents} />;
 }

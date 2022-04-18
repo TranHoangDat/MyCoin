@@ -1,12 +1,16 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+import { useContext } from "react";
+import { StepperContext } from "../../../contexts/StepperContext";
 import ContainedButton from "../../buttons/ContainedButton";
 import TextButton from "../../buttons/TextButton";
-import CreateWalletModalStepHeader from "./CreateWalletModalStepHeader";
+import ModalStepHeader from "../ModalStepHeader";
 
 export default function CreateWalletWellDoneStep() {
+  const { handleRestart } = useContext(StepperContext);
+
   return (
     <Box>
-      <CreateWalletModalStepHeader headline="STEP 3." title="You're done" />
+      <ModalStepHeader headline="STEP 3." title="You're done" />
       <Grid marginTop="12px" container>
         <Grid
           sx={{
@@ -23,6 +27,7 @@ export default function CreateWalletWellDoneStep() {
           <Box>
             <ContainedButton fullWidth>Access Wallet</ContainedButton>
             <TextButton
+              onClick={() => handleRestart()}
               style={{
                 marginTop: "12px",
               }}

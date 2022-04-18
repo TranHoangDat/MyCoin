@@ -21,11 +21,7 @@ const descriptionStyle = {
   fontSize: "14px",
 };
 
-export default function CreateWalletModalStepHeader({
-  headline,
-  title,
-  description,
-}) {
+export default function ModalStepHeader({ headline, title, description }) {
   return (
     <Box sx={wrapperStyle}>
       <Typography sx={headlineStyle}>{headline}</Typography>

@@ -1,30 +1,60 @@
 import { Box, Stack } from "@mui/material";
 import ContainedButton from "../../../buttons/ContainedButton";
-import CreateWalletModalInput from "../CreateWalletModalInput";
-import CreateWalletModalStepHeader from "../CreateWalletModalStepHeader";
-import { useState } from "react";
+import ModalInput from "../../ModalInput";
+import ModalStepHeader from "../../ModalStepHeader";
+import { useContext, useState } from "react";
+import { StepperContext } from "../../../../contexts/StepperContext";
 
 export default function CreatePasswordStep() {
-  const [isPasswordShowed, setIsPasswordShowed] = useState(false);
-  const [isConfirmPasswordShowed, setIsConfirmPasswordShowed] = useState(false);
+  const { handleNext } = useContext(StepperContext);
+  const [password, setPassword] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
 
-  const handleClickShowPassword = () => {
-    setIsPasswordShowed(!isPasswordShowed);
+  const handleOnChangePassword = e => {
+    setPassword(e.target.value);
   };
 
-  const handleClickShowConfirmPassword = () => {
-    setIsConfirmPasswordShowed(!isConfirmPasswordShowed);
+  const handleOnChangeConfirmedPassword = e => {
+    setConfirmedPassword(e.target.value);
+  };
+
+  const handleOnClickCreateWalletButton = () => {
+    handleNext();
   };
 
   return (
     <Stack spacing={3}>
-      <CreateWalletModalStepHeader headline="STEP 1." title="Create password" />
-      <Stack spacing={4.5}>
-        <CreateWalletModalInput label="Password" type="password" />
-        <CreateWalletModalInput label="Confirm Password" type="password" />
+      <ModalStepHeader headline="STEP 1." title="Create password" />
+      <Stack spacing={4}>
+        <ModalInput
+          onChange={handleOnChangePassword}
+          helperText="Password must be 8 or more characters"
+          label="Password"
+          type="password"
+          error={password.length < 8}
+        />
+        <ModalInput
+          onChange={handleOnChangeConfirmedPassword}
+          helperText={
+            confirmedPassword !== password ? "Passwords do not match" : ""
+          }
+          label="Confirm Password"
+          type="password"
+          error={confirmedPassword !== password}
+        />
       </Stack>
       <Box>
-        <ContainedButton disabled>Create Wallet</ContainedButton>
+        <ContainedButton
+          disabled={
+            !(
+              password !== "" &&
+              (confirmedPassword !== "") & (password === confirmedPassword)
+            )
+          }
+          onClick={handleOnClickCreateWalletButton}
+        >
+          Create Wallet
+        </ContainedButton>
       </Box>
     </Stack>
   );

@@ -7,6 +7,7 @@ import {
   Stepper,
 } from "@mui/material";
 import { useState } from "react";
+import { StepperContext } from "../../contexts/StepperContext";
 
 const stepperStyle = {
   padding: "24px 0 ",
@@ -48,22 +49,19 @@ const stepLabelStyle = {
   },
 };
 
-export default function CreateWalletModalStepper({ steps, stepComponents }) {
-  const [activeStep, setActiveStep] = useState(1);
+export default function ModalStepper({ steps, stepComponents }) {
+  const [activeStep, setActiveStep] = useState(0);
 
-  // const handleNext = () => {
-  //   let newSkipped = skipped;
-  //   if (isStepSkipped(activeStep)) {
-  //     newSkipped = new Set(newSkipped.values());
-  //     newSkipped.delete(activeStep);
-  //   }
-
-  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   setSkipped(newSkipped);
-  // };
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  };
 
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const handleRestart = () => {
+    setActiveStep(0);
   };
 
   return (
@@ -77,7 +75,11 @@ export default function CreateWalletModalStepper({ steps, stepComponents }) {
           );
         })}
       </Stepper>
-      {stepComponents[activeStep]}
+      <StepperContext.Provider
+        value={{ handleNext, handleBack, handleRestart }}
+      >
+        {stepComponents[activeStep]}
+      </StepperContext.Provider>
     </Box>
   );
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContainedButton from "../buttons/ContainedButton";
 import OutlinedButton from "../buttons/OutlinedButton";
+import AccessWalletModal from "../modals/access-wallet-modal/AccessWalletModal";
 import CreateWalletModal from "../modals/create-wallet-modal/CreateWalletModal";
 import HomeHeroImage from "./HomeHeroImage";
 
@@ -11,6 +12,9 @@ const Wrapper = styled(({ ...props }) => <Box {...props} />)({
   height: "800px",
   backgroundColor: "#184f90",
   backgroundImage: "url('./images/home/bg-homepage.svg')",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundPosition: "100% bottom",
 });
 
 const Container = styled(({ ...props }) => <Stack {...props} />)({
@@ -26,9 +30,19 @@ const Container = styled(({ ...props }) => <Stack {...props} />)({
 export default function HomeHero() {
   const navigate = useNavigate();
   const [isCreateWalletModalOpen, setIsCreateWalletModalOpen] = useState(false);
+  const [isAccessWalletModalOpen, setIsAccessWalletModalOpen] = useState(false);
+
   const handleOpenCreateWalletModal = () => setIsCreateWalletModalOpen(true);
+
   const handleCloseCreateWalletModal = () => {
     setIsCreateWalletModalOpen(false);
+    navigate("/", { replace: "true" });
+  };
+
+  const handleOpenAccessWalletModal = () => setIsAccessWalletModalOpen(true);
+
+  const handleCloseAccessWalletModal = () => {
+    setIsAccessWalletModalOpen(false);
     navigate("/", { replace: "true" });
   };
 
@@ -64,7 +78,13 @@ export default function HomeHero() {
               open={isCreateWalletModalOpen}
               handleClose={handleCloseCreateWalletModal}
             />
-            <OutlinedButton>Access my wallet</OutlinedButton>
+            <OutlinedButton onClick={handleOpenAccessWalletModal}>
+              Access my wallet
+            </OutlinedButton>
+            <AccessWalletModal
+              open={isAccessWalletModalOpen}
+              handleClose={handleCloseAccessWalletModal}
+            />
           </Stack>
         </Box>
         <HomeHeroImage />
