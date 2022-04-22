@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import Paper from "./Paper";
+import Paper from "../Paper";
 
 const wrapperStyle = {
   padding: "40px 32px 30px",

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import Paper from "./Paper";
+import Paper from "../Paper";
 
 const containerStyle = {
   minHeight: "352px",

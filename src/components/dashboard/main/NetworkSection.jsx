@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import Paper from "./Paper";
+import Paper from "../Paper";
 
 const wrapperStyle = {
   minHeight: "132px",
