@@ -2,13 +2,23 @@ import { Box, Stack } from "@mui/material";
 import ContainedButton from "../../../buttons/ContainedButton";
 import ModalInput from "../../ModalInput";
 import ModalStepHeader from "../../ModalStepHeader";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StepperContext } from "../../../../contexts/StepperContext";
+import { CreateWalletUsingKeystoreContext } from "../../../../contexts/CreateWalletUsingKeystoreContext";
 
 export default function CreatePasswordStep() {
   const { handleNext } = useContext(StepperContext);
+  const { handleCreatePassword, downloadLink } = useContext(
+    CreateWalletUsingKeystoreContext,
+  );
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+
+  useEffect(() => {
+    if (downloadLink) {
+      handleNext();
+    }
+  }, [downloadLink]);
 
   const handleOnChangePassword = e => {
     setPassword(e.target.value);
@@ -19,7 +29,7 @@ export default function CreatePasswordStep() {
   };
 
   const handleOnClickCreateWalletButton = () => {
-    handleNext();
+    handleCreatePassword(password);
   };
 
   return (
