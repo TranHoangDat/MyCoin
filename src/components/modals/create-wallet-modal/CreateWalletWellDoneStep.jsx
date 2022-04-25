@@ -27,7 +27,7 @@ export default function CreateWalletWellDoneStep() {
           <Box>
             <ContainedButton fullWidth>Access Wallet</ContainedButton>
             <TextButton
-              onClick={() => handleRestart()}
+              onClick={handleRestart}
               style={{
                 marginTop: "12px",
               }}

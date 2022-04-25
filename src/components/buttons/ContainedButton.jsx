@@ -1,7 +1,8 @@
-import { Button, buttonClasses, styled } from "@mui/material";
+import { buttonClasses, styled } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 export default styled(({ ...props }) => (
-  <Button {...props} variant="contained" />
+  <LoadingButton {...props} variant="contained" />
 ))({
   height: "62px",
   padding: "0 46px",

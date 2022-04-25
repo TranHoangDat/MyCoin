@@ -57,11 +57,16 @@ const coinBalanceTypoStyle = {
 };
 
 export default function AccountCard() {
+  const publicKey = localStorage.getItem("publicKey");
+
   return (
     <Card sx={cardStyle}>
       <CardContent sx={cardContentStyle}>
         <Typography sx={titleTypoStyle}>My personal account</Typography>
-        <Typography sx={publicKeyTypoStyle}>benevolent</Typography>
+        <Typography sx={publicKeyTypoStyle}>
+          {publicKey.slice(0, 5)}...
+          {publicKey.slice(126, 130)}
+        </Typography>
         <Typography sx={dollarBalanceTypoStyle}>$0.00</Typography>
       </CardContent>
       <CardActions sx={cardActionsStyle}>

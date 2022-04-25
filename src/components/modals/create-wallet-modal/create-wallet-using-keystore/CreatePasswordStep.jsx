@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material";
 import ContainedButton from "../../../buttons/ContainedButton";
-import ModalInput from "../../ModalInput";
+import ModalInput from "../../../input/Input";
 import ModalStepHeader from "../../ModalStepHeader";
 import { useContext, useEffect, useState } from "react";
 import { StepperContext } from "../../../../contexts/StepperContext";

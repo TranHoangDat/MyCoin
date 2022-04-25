@@ -32,7 +32,6 @@ const importantThings = [
 
 export default function DownloadKeystoreFileStep() {
   const { file, downloadLink } = useContext(CreateWalletUsingKeystoreContext);
-  console.log(file);
   const { handleNext, handleBack } = useContext(StepperContext);
 
   const handleOnClickBackButton = () => {

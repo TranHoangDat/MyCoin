@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import ContainedButton from "../../../buttons/ContainedButton";
-import ModalInput from "../../ModalInput";
+import ModalInput from "../../../input/Input";
 import { useState } from "react";
 
 export default function AccessWalletUsingPrivateKey() {

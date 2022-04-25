@@ -16,7 +16,7 @@ export default function CoinValueSection() {
           $ 0.00
         </Typography>
         <Typography variant="body2" marginTop={2} fontWeight={700}>
-          1 coin - 1000VND
+          1 coin - 1$
         </Typography>
       </Box>
     </Paper>
