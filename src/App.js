@@ -6,6 +6,7 @@ import DashboardPage from "./pages/DashboardPage";
 import DashboardMain from "./components/dashboard/main/DashboardMain";
 import DashboardTransaction from "./components/dashboard/transaction/DashboardTransaction";
 import TransactionDetail from "./components/dashboard/transaction/TransactionDetail";
+import DashboardPendingTransaction from "./components/dashboard/pending-transaction/DashboardPendingTransaction";
 import DashboardSendSection from "./components/dashboard/send-section/DashboardSendSection";
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
         <Route
           path="/wallet/dashboard/transactions"
           element={<DashboardTransaction />}
+        />
+        <Route
+          path="/wallet/dashboard/pendingTransactions"
+          element={<DashboardPendingTransaction />}
         />
         <Route
           path="/wallet/dashboard/transaction/:id"

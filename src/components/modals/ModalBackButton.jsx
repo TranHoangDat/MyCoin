@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export default function ModalCloseButton({ handleBack }) {
+export default function ModalBackButton({ handleBack }) {
   return (
     <IconButton
       sx={{

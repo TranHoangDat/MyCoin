@@ -12,8 +12,6 @@ const containerStyle = {
   padding: "32px 48px",
 };
 
-const inputContainerStyle = {};
-
 export default function DashboardSendSection() {
   return (
     <DashboardContent>
@@ -55,7 +53,7 @@ export default function DashboardSendSection() {
                   }}
                   disabled
                 >
-                  Send
+                  Sign & Send
                 </ContainedButton>
               </Stack>
             </Box>
