@@ -8,6 +8,7 @@ import DashboardTransaction from "./components/dashboard/transaction/DashboardTr
 import TransactionDetail from "./components/dashboard/transaction/TransactionDetail";
 import DashboardPendingTransaction from "./components/dashboard/pending-transaction/DashboardPendingTransaction";
 import DashboardSendSection from "./components/dashboard/send-section/DashboardSendSection";
+import DashboardBlockchain from "./components/dashboard/block-chain/DashboardBlockchain";
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
       <Route path="/" element={<HomePage />} exact />
       <Route element={<DashboardPage />}>
         <Route path="/wallet/dashboard/main" element={<DashboardMain />} />
+        <Route
+          path="/wallet/dashboard/blockChain"
+          element={<DashboardBlockchain />}
+        />
         <Route
           path="/wallet/dashboard/send"
           element={<DashboardSendSection />}

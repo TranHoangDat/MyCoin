@@ -27,7 +27,7 @@ export default function EnterPasswordStep() {
     const isSuccessful = await handleAccessWallet(password);
 
     if (isSuccessful) {
-      navigate("/wallet/dashboard");
+      navigate("/wallet/dashboard/main");
     } else {
       setIsLoading(false);
       setOpenSnackbar(true);

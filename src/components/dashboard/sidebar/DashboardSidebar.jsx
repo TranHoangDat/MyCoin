@@ -15,6 +15,7 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
+import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -69,6 +70,11 @@ const listItemTextStyle = {
 };
 
 const list = [
+  {
+    icon: <DynamicFeedIcon />,
+    label: "Blocks of chain",
+    section: "blockChain",
+  },
   {
     icon: <ArrowCircleUpIcon />,
     label: "Send",
