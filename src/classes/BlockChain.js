@@ -1,4 +1,5 @@
 import Block from "./Block";
+import Transaction from "./Transaction";
 
 export default class Blockchain {
   constructor() {

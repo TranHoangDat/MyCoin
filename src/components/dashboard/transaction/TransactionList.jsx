@@ -1,6 +1,5 @@
 import { Box, Button, List, Typography } from "@mui/material";
 import Paper from "../Paper";
-import TransactionListItem from "./TransactionListItem";
 
 const wrapperStyle = {
   padding: "12px 0 10px",
@@ -28,16 +27,14 @@ const listFooterStyle = {
   borderTop: "1px solid rgba(0, 0, 0, 0.1)",
 };
 
-export default function TransactionList() {
+export default function TransactionList({ children }) {
   return (
     <Paper>
       <Box sx={wrapperStyle}>
         <Box sx={listHeaderStyle}>
           <Typography sx={titleStyle}>Latest Transactions</Typography>
         </Box>
-        <List sx={listContentStyle}>
-          <TransactionListItem />
-        </List>
+        <List sx={listContentStyle}>{children}</List>
         <Box sx={listFooterStyle}>
           <Button variant="outlined">View all transactions</Button>
         </Box>

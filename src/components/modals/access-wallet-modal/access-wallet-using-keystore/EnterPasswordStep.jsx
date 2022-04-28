@@ -6,6 +6,7 @@ import ModalInput from "../../../input/Input";
 import ModalStepHeader from "../../ModalStepHeader";
 import { AccessWalletUsingKeystoreContext } from "../../../../contexts/AccessWalletUsingKeystoreContext";
 import { useNavigate } from "react-router-dom";
+import { MainContext } from "../../../../contexts/MainContext";
 
 const wrapperStyle = {
   padding: "48px",
@@ -14,6 +15,7 @@ const wrapperStyle = {
 export default function EnterPasswordStep() {
   const navigate = useNavigate();
   const { handleAccessWallet } = useContext(AccessWalletUsingKeystoreContext);
+  const { handleSetWallet } = useContext(MainContext);
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState();
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -24,9 +26,10 @@ export default function EnterPasswordStep() {
 
   const handleClickAccessWalletButton = async () => {
     setIsLoading(true);
-    const isSuccessful = await handleAccessWallet(password);
+    const wallet = await handleAccessWallet(password);
 
-    if (isSuccessful) {
+    if (wallet) {
+      handleSetWallet(wallet);
       navigate("/wallet/dashboard/main");
     } else {
       setIsLoading(false);

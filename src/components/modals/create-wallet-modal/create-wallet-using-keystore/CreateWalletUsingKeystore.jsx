@@ -1,10 +1,11 @@
+import Wallet from "ethereumjs-wallet";
+import EC from "elliptic";
 import ModalStepper from "../../ModalStepper";
 import CreateWalletWellDoneStep from "../CreateWalletWellDoneStep";
 import CreatePasswordStep from "./CreatePasswordStep";
 import DownloadKeystoreFileStep from "./DownloadKeystoreFileStep";
 import { CreateWalletUsingKeystoreContext } from "../../../../contexts/CreateWalletUsingKeystoreContext";
 import { useState } from "react";
-import { createPassword } from "../../../../api/authApi";
 
 const steps = [
   "STEP 1. Create password",
@@ -19,22 +20,20 @@ const stepComponents = [
 ];
 
 export default function CreateWalletUsingKeystore() {
-  const [keystoreFile, setKeystoreFile] = useState();
   const [downloadLink, setDownloadLink] = useState();
   const [downloadedFile, setDownloadedFile] = useState();
 
   const handleCreatePassword = async password => {
-    const result = await createPassword(password);
-    setKeystoreFile({
-      fileName: result.data.fileName,
-      fileContent: result.data.fileContent,
-    });
-    const data = new Blob([result.data.fileContent], { type: "text/plain" });
+    const ec = new EC.ec("secp256k1");
+    const key = ec.genKeyPair();
+    const privateKeyBuffer = Buffer.from(key.getPrivate("hex"), "hex");
+    const wallet = Wallet.fromPrivateKey(privateKeyBuffer);
+    const fileName = wallet.getV3Filename();
+    const fileContent = await wallet.toV3String(password);
+    const data = new Blob([fileContent], { type: "text/plain" });
     const downloadUrl = window.URL.createObjectURL(data);
     setDownloadLink(downloadUrl);
-    setDownloadedFile(
-      `${result.data.fileName}.${result.data.fileName.slice(25).toUpperCase()}`,
-    );
+    setDownloadedFile(`${fileName}.${fileName.slice(25).toUpperCase()}`);
   };
 
   return (

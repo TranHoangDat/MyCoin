@@ -18,7 +18,7 @@ export default function CreatePasswordStep() {
     if (downloadLink) {
       handleNext();
     }
-  }, [downloadLink]);
+  }, [downloadLink, handleNext]);
 
   const handleOnChangePassword = e => {
     setPassword(e.target.value);

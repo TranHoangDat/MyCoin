@@ -1,3 +1,4 @@
+import Wallet from "ethereumjs-wallet";
 import { useState } from "react";
 import ModalStepper from "../../ModalStepper";
 import EnterPasswordStep from "./EnterPasswordStep";
@@ -11,7 +12,6 @@ const stepComponents = [<SelectFileStep />, <EnterPasswordStep />];
 
 export default function AccessWalletUsingKeystore() {
   const [keystore, setKeystore] = useState();
-  const [password, setPassword] = useState();
 
   const saveKeystore = keystore => {
     setKeystore(keystore);
@@ -19,11 +19,10 @@ export default function AccessWalletUsingKeystore() {
 
   const handleAccessWallet = async password => {
     try {
-      const result = await accessWallet(keystore, password);
-      localStorage.setItem("publicKey", result.data.publicKey);
-      return true;
+      const wallet = await Wallet.fromV3(keystore, password);
+      return wallet;
     } catch (e) {
-      return false;
+      return null;
     }
   };
 
