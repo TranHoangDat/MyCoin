@@ -7,6 +7,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useContext } from "react";
+import { MainContext } from "../../../contexts/MainContext";
 import ContainedButton from "../../buttons/ContainedButton";
 import DashboardContent from "../DashboardContent";
 import Paper from "../Paper";
@@ -18,21 +20,10 @@ const cellStyle = {
   textOverflow: "ellipsis",
 };
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData(
-    "0",
-    "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJNM6DR88GU4qgLTlbqK",
-    "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJNM6DR88GU4qgLTlbqK",
-    24,
-    Date.now(),
-  ),
-];
-
 export default function DashboardPendingTransaction() {
+  const { blockchainService } = useContext(MainContext);
+  const pendingTxs = blockchainService.getPendingTransactions();
+
   return (
     <DashboardContent>
       <TableContainer component={Paper}>
@@ -47,22 +38,22 @@ export default function DashboardPendingTransaction() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
+            {pendingTxs.map((tx, index) => (
               <TableRow
-                key={row.name}
+                key={tx.hash}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {index}
                 </TableCell>
                 <TableCell sx={cellStyle} align="right">
-                  {row.calories}
+                  {tx.fromAddress}
                 </TableCell>
                 <TableCell sx={cellStyle} align="right">
-                  {row.fat}
+                  {tx.toAddress}
                 </TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{tx.amount}</TableCell>
+                <TableCell align="right">{tx.timestamp}</TableCell>
               </TableRow>
             ))}
           </TableBody>

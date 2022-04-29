@@ -1,8 +1,11 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Alert, Box, Grid, Snackbar, Stack, Typography } from "@mui/material";
 import Input from "../../input/Input";
 import DashboardContent from "../DashboardContent";
 import Paper from "../Paper";
 import ContainedButton from "../../buttons/ContainedButton";
+import { useContext, useState } from "react";
+import { MainContext } from "../../../contexts/MainContext";
+import Transaction from "../../../classes/Transaction";
 
 const wrapperStyle = {
   maxWidth: "736px",
@@ -13,6 +16,54 @@ const containerStyle = {
 };
 
 export default function DashboardSendSection() {
+  const { blockchainService } = useContext(MainContext);
+  const [amount, setAmount] = useState();
+  const [toAddress, setToAddress] = useState();
+  const [errorMsg, setErrorMsg] = useState();
+  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+  const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+
+  const handleCloseErrorSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenErrorSnackbar(false);
+  };
+
+  const handleCloseSuccessSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSuccessSnackbar(false);
+  };
+
+  const handleChangeAmount = e => {
+    setAmount(e.target.value);
+  };
+
+  const handleChangeToAddress = e => {
+    setToAddress(e.target.value);
+  };
+
+  const handleCreateTransaction = () => {
+    const newTx = new Transaction(
+      blockchainService.wallet.signingKeyObj.getPublic("hex"),
+      toAddress,
+      parseInt(amount),
+    );
+    newTx.signTransaction(blockchainService.wallet.signingKeyObj);
+
+    try {
+      blockchainService.addTransaction(newTx);
+      setOpenSuccessSnackbar(true);
+    } catch (e) {
+      setErrorMsg(e.message);
+      setOpenErrorSnackbar(true);
+    }
+  };
+
   return (
     <DashboardContent>
       <Box sx={wrapperStyle}>
@@ -35,6 +86,7 @@ export default function DashboardSendSection() {
               </Grid>
               <Grid item xs={6}>
                 <Input
+                  onChange={handleChangeAmount}
                   label="Amount"
                   type="number"
                   InputLabelProps={{
@@ -45,13 +97,17 @@ export default function DashboardSendSection() {
               </Grid>
             </Grid>
             <Box>
-              <Input label="Address" fullWidth />
+              <Input
+                onChange={handleChangeToAddress}
+                label="Address"
+                fullWidth
+              />
               <Stack marginTop={4}>
                 <ContainedButton
+                  onClick={handleCreateTransaction}
                   style={{
                     margin: "0 auto",
                   }}
-                  disabled
                 >
                   Sign & Send
                 </ContainedButton>
@@ -59,6 +115,32 @@ export default function DashboardSendSection() {
             </Box>
           </Box>
         </Paper>
+        <Snackbar
+          open={openErrorSnackbar}
+          autoHideDuration={2000}
+          onClose={handleCloseErrorSnackbar}
+        >
+          <Alert
+            onClose={handleCloseErrorSnackbar}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errorMsg}
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={openSuccessSnackbar}
+          autoHideDuration={2000}
+          onClose={handleCloseSuccessSnackbar}
+        >
+          <Alert
+            onClose={handleCloseSuccessSnackbar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Send successfully
+          </Alert>
+        </Snackbar>
       </Box>
     </DashboardContent>
   );
