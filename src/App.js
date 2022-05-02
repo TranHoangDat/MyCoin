@@ -12,12 +12,15 @@ import { MainContext } from "./contexts/MainContext";
 import { useState } from "react";
 import { BlockchainService } from "./services/blockchain.service";
 import PrivateRoute from "./routers/PrivateRoute";
+import { ConnectionService } from "./services/connection.service";
 
 function App() {
   const [blockchainService, setBlockchainService] = useState();
+  const [connectionService, setConnectionService] = useState();
 
   const handleSetWallet = wallet => {
     setBlockchainService(new BlockchainService(wallet));
+    setConnectionService(new ConnectionService());
   };
 
   return (

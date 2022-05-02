@@ -6,6 +6,8 @@ import {
   Typography,
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { useContext } from "react";
+import { MainContext } from "../../../contexts/MainContext";
 
 const cardStyle = {
   display: "flex",
@@ -57,20 +59,24 @@ const coinBalanceTypoStyle = {
 };
 
 export default function AccountCard() {
-  const publicKey = localStorage.getItem("publicKey");
+  const { blockchainService } = useContext(MainContext);
+  const publicKey = blockchainService.wallet.signingKeyObj.getPublic("hex");
+  const balance = blockchainService.getBalanceOfAddress(publicKey);
 
   return (
     <Card sx={cardStyle}>
       <CardContent sx={cardContentStyle}>
         <Typography sx={titleTypoStyle}>My personal account</Typography>
         <Typography sx={publicKeyTypoStyle}>
-          {publicKey.slice(0, 5)}...
-          {publicKey.slice(126, 130)}
+          {publicKey.slice(0, 6)}...
+          {publicKey.slice(publicKey.length - 4, publicKey.length)}
         </Typography>
-        <Typography sx={dollarBalanceTypoStyle}>$0.00</Typography>
+        <Typography sx={dollarBalanceTypoStyle}>
+          ${balance.toFixed(2)}
+        </Typography>
       </CardContent>
       <CardActions sx={cardActionsStyle}>
-        <Typography sx={coinBalanceTypoStyle}>0 FUR</Typography>
+        <Typography sx={coinBalanceTypoStyle}>{balance} FUR</Typography>
         <IconButton aria-label="copy" size="large">
           <ContentCopyIcon />
         </IconButton>

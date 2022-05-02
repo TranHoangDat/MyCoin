@@ -12,6 +12,10 @@ export class BlockchainService {
     this.wallet = wallet;
   }
 
+  getBalanceOfAddress(address) {
+    return this.blockchainInstance.getBalanceOfAddress(address);
+  }
+
   getBlocks() {
     return this.blockchainInstance.chain;
   }
@@ -26,7 +30,7 @@ export class BlockchainService {
 
   minePendingTransactions() {
     this.blockchainInstance.minePendingTransactions(
-      this.wallet.getPublicKeyString(),
+      this.wallet.signingKeyObj.getPublic("hex"),
     );
   }
 }

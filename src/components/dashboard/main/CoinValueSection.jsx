@@ -1,4 +1,6 @@
 import { Box, Typography } from "@mui/material";
+import { useContext } from "react";
+import { MainContext } from "../../../contexts/MainContext";
 import Paper from "../Paper";
 
 const wrapperStyle = {
@@ -6,6 +8,11 @@ const wrapperStyle = {
 };
 
 export default function CoinValueSection() {
+  const { blockchainService } = useContext(MainContext);
+  const balance = blockchainService.getBalanceOfAddress(
+    blockchainService.wallet.signingKeyObj.getPublic("hex"),
+  );
+
   return (
     <Paper>
       <Box sx={wrapperStyle} component="section">
@@ -13,7 +20,7 @@ export default function CoinValueSection() {
           MY COIN VALUE
         </Typography>
         <Typography color="#0b2840" fontSize="20px" fontWeight={700}>
-          $ 0.00
+          $ {balance.toFixed(2)}
         </Typography>
         <Typography variant="body2" marginTop={2} fontWeight={700}>
           1 coin - 1$

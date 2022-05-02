@@ -6,6 +6,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  listItemTextClasses,
   Typography,
   typographyClasses,
 } from "@mui/material";
@@ -25,17 +26,27 @@ const normalTextStyle = {
 
 const transactionIdWrapperStyle = {
   maxWidth: "425px",
-  whiteSpace: "nowrap",
   overflow: "hidden",
-  textOverflow: "ellipsis",
+
+  [`& .${typographyClasses.root}`]: {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
 };
 
 const addressesContainerStyle = {
   marginLeft: "35px",
-  maxWidth: "425px",
-  whiteSpace: "nowrap",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
+
+  [`& .${listItemTextClasses.root}`]: {
+    maxWidth: "425px",
+
+    [`& .${typographyClasses.root}`]: {
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    },
+  },
 };
 
 const chipWrapperStyle = {
@@ -76,7 +87,7 @@ export default function TransactionListItem({
                   {fromAddress}
                 </Link>
               ) : (
-                "System"
+                "System (Block reward)"
               )}
             </Typography>
           }
