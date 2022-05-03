@@ -1,6 +1,23 @@
 import crypto from "crypto";
+import Transaction from "./Transaction";
 
 export default class Block {
+  static copy(obj) {
+    if (obj) {
+      return Object.assign(new Block(), obj);
+    }
+  }
+
+  static calculateHash(block) {
+    return block.calculateHash();
+  }
+
+  static hasValidTransactions(block, chain) {
+    return block.transactions.every(transaction =>
+      Transaction.isValid(transaction, chain),
+    );
+  }
+
   constructor(timestamp, transactions, previousHash = "") {
     this.previousHash = previousHash;
     this.timestamp = timestamp;

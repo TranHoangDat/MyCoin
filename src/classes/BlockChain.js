@@ -7,14 +7,23 @@ export default class Blockchain {
     this.difficulty = 2;
     this.pendingTransactions = [];
     this.miningReward = 5;
+    this.blockTime = 30000;
   }
 
   createGenesisBlock() {
     return new Block(Date.parse("2022-01-01"), [], "0");
   }
 
+  getLaterBlock() {
+    return this.chain[this.chain.length - 2];
+  }
+
   getLatestBlock() {
     return this.chain[this.chain.length - 1];
+  }
+
+  getLatestBlockPosition() {
+    return this.chain.length - 1;
   }
 
   minePendingTransactions(miningRewardAddress) {
@@ -31,10 +40,20 @@ export default class Blockchain {
       this.getLatestBlock().hash,
     );
     block.mineBlock(this.difficulty);
+    this.chain.push(block);
+    this.pendingTransactions = [];
+  }
 
+  addBlock(block) {
+    block.previousHash = this.getLatestBlock().hash;
+    block.hash = Block.calculateHash(block);
+    block.mineBlock(this.difficulty);
     this.chain.push(block);
 
-    this.pendingTransactions = [];
+    this.difficulty +=
+      Date.now() - parseInt(this.getLatestBlock().timestamp) < this.blockTime
+        ? 1
+        : -1;
   }
 
   addTransaction(transaction) {

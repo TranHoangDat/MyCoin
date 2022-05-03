@@ -16,7 +16,7 @@ const containerStyle = {
 };
 
 export default function DashboardSendSection() {
-  const { blockchainService } = useContext(MainContext);
+  const { blockchainService, connectionService } = useContext(MainContext);
   const [amount, setAmount] = useState();
   const [toAddress, setToAddress] = useState();
   const [errorMsg, setErrorMsg] = useState();
@@ -56,6 +56,11 @@ export default function DashboardSendSection() {
     newTx.signTransaction(blockchainService.wallet.signingKeyObj);
 
     try {
+      const message = connectionService.produceMessage(
+        "TYPE_CREATE_TRANSACTION",
+        newTx,
+      );
+      connectionService.sendMessage(message);
       blockchainService.addTransaction(newTx);
       setOpenSuccessSnackbar(true);
     } catch (e) {

@@ -19,12 +19,15 @@ function App() {
   const [connectionService, setConnectionService] = useState();
 
   const handleSetWallet = wallet => {
-    setBlockchainService(new BlockchainService(wallet));
-    setConnectionService(new ConnectionService());
+    const newBlockchainService = new BlockchainService(wallet);
+    setBlockchainService(newBlockchainService);
+    setConnectionService(new ConnectionService(newBlockchainService));
   };
 
   return (
-    <MainContext.Provider value={{ blockchainService, handleSetWallet }}>
+    <MainContext.Provider
+      value={{ blockchainService, connectionService, handleSetWallet }}
+    >
       <Routes>
         <Route path="/" element={<HomePage />} exact />
         <Route element={<PrivateRoute />}>

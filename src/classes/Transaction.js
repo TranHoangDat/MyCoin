@@ -2,6 +2,22 @@ import EC from "elliptic";
 import crypto from "crypto";
 
 export default class Transaction {
+  static copy(obj) {
+    if (obj) {
+      return Object.assign(new Transaction(), obj);
+    }
+  }
+
+  static isValid(tx, chain) {
+    return (
+      tx.fromAddress &&
+      tx.toAddress &&
+      tx.amount &&
+      chain.getBalanceOfAddress(tx.fromAddress) >= tx.amount &&
+      tx.isValid()
+    );
+  }
+
   constructor(fromAddress, toAddress, amount) {
     this.fromAddress = fromAddress;
     this.toAddress = toAddress;
@@ -31,8 +47,6 @@ export default class Transaction {
       throw new Error("You cannot sign transactions for other wallets!");
     }
 
-    // Calculate the hash of this transaction, sign it with the key
-    // and store it inside the transaction obect
     const sig = signingKey.sign(this.hash, "base64");
     this.signature = sig.toDER("hex");
   }

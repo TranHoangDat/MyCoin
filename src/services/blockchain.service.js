@@ -6,9 +6,6 @@ export class BlockchainService {
 
   constructor(wallet) {
     this.blockchainInstance.difficulty = 1;
-    this.blockchainInstance.minePendingTransactions(
-      wallet.signingKeyObj.getPublic("hex"),
-    );
     this.wallet = wallet;
   }
 
@@ -24,6 +21,10 @@ export class BlockchainService {
     this.blockchainInstance.addTransaction(tx);
   }
 
+  addBlock(block) {
+    this.blockchainInstance.addBlock(block);
+  }
+
   getPendingTransactions() {
     return this.blockchainInstance.pendingTransactions;
   }
@@ -32,5 +33,21 @@ export class BlockchainService {
     this.blockchainInstance.minePendingTransactions(
       this.wallet.signingKeyObj.getPublic("hex"),
     );
+  }
+
+  getLaterBlock() {
+    return this.blockchainInstance.getLaterBlock();
+  }
+
+  getLatestBlock() {
+    return this.blockchainInstance.getLatestBlock();
+  }
+
+  getLatestBlockPosition() {
+    return this.blockchainInstance.getLatestBlockPosition();
+  }
+
+  getDifficulty() {
+    return this.blockchainInstance.difficulty;
   }
 }
