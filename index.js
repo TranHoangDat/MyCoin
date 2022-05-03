@@ -20,10 +20,6 @@ io.on("connection", socket => {
   socket.emit("me", socket.id);
 
   signalingHandler(socket);
-
-  socket.on("disconnect", () => {
-    socket.broadcast.emit("ended");
-  });
 });
 
 const PORT = 5000;
