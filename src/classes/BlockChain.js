@@ -18,7 +18,7 @@ export default class Blockchain {
 
       if (
         currentBlock.hash !== Block.calculateHash(currentBlock) ||
-        prevBlock.hash !== currentBlock.prevHash ||
+        prevBlock.hash !== currentBlock.previousHash ||
         !Block.hasValidTransactions(currentBlock, blockchain)
       ) {
         return false;

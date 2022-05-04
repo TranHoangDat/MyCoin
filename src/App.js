@@ -12,25 +12,23 @@ import { MainContext } from "./contexts/MainContext";
 import { useState } from "react";
 import { BlockchainService } from "./services/blockchain.service";
 import PrivateRoute from "./routers/PrivateRoute";
-import { ConnectionService } from "./services/connection.service";
+import { NetworkService } from "./services/network.service";
 import { MintService } from "./services/mint.service";
 
 function App() {
   const [blockchainService, setBlockchainService] = useState();
-  const [connectionService, setConnectionService] = useState();
+  const [networkService, setNetworkService] = useState();
 
   const handleSetWallet = wallet => {
     const mintService = new MintService();
     const newBlockchainService = new BlockchainService(wallet);
     setBlockchainService(newBlockchainService);
-    setConnectionService(
-      new ConnectionService(mintService, newBlockchainService),
-    );
+    setNetworkService(new NetworkService(mintService, newBlockchainService));
   };
 
   return (
     <MainContext.Provider
-      value={{ blockchainService, connectionService, handleSetWallet }}
+      value={{ blockchainService, networkService, handleSetWallet }}
     >
       <Routes>
         <Route path="/" element={<HomePage />} exact />

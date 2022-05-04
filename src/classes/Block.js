@@ -14,7 +14,7 @@ export default class Block {
 
   static hasValidTransactions(block, chain) {
     return block.transactions.every(transaction =>
-      Transaction.isValid(transaction, chain),
+      Transaction.isValid(Transaction.copy(transaction), chain),
     );
   }
 

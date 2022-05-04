@@ -5,7 +5,7 @@ import Block from "../classes/Block";
 import Blockchain from "../classes/Blockchain";
 import { MintService } from "./mint.service";
 
-export class ConnectionService {
+export class NetworkService {
   peers = {};
   ws = null;
   address = "";
@@ -108,6 +108,16 @@ export class ConnectionService {
     this.createPeer(address, false);
   }
 
+  minePendingTransactions() {
+    this.blockchainService.minePendingTransactions();
+    this.sendMessage(
+      this.produceMessage("TYPE_REPLACE_CHAIN", [
+        this.blockchainService.getLatestBlock(),
+        this.blockchainService.getDifficulty(),
+      ]),
+    );
+  }
+
   handlePeerData(data) {
     const message = JSON.parse(data);
 
@@ -176,9 +186,6 @@ export class ConnectionService {
     } else {
       this.tempChain.chain.push(block);
 
-      // false
-      console.log(Blockchain.isValid(this.tempChain));
-
       if (Blockchain.isValid(this.tempChain)) {
         this.blockchainService.blockchainInstance.chain = this.tempChain.chain;
       }
@@ -215,7 +222,7 @@ export class ConnectionService {
 
     const theirTx = [
       ...newBlock.transactions
-        .filter(tx => tx.from !== null)
+        .filter(tx => tx.fromAddress !== MintService.MINT_PUBLIC_ADDRESS)
         .map(tx => JSON.stringify(tx)),
     ];
 
@@ -247,7 +254,8 @@ export class ConnectionService {
         parseInt(newBlock.timestamp) >
           parseInt(this.blockchainService.getLatestBlock().timestamp) &&
         parseInt(newBlock.timestamp) < Date.now() &&
-        this.blockchainService.getLatestBlock().hash === newBlock.prevHash &&
+        this.blockchainService.getLatestBlock().hash ===
+          newBlock.previousHash &&
         (newDiff + 1 === this.blockchainService.getDifficulty() ||
           newDiff - 1 === this.blockchainService.getDifficulty())
       ) {
@@ -260,14 +268,14 @@ export class ConnectionService {
     } else if (
       !this.checked.includes(
         JSON.stringify([
-          newBlock.prevHash,
+          newBlock.previousHash,
           this.blockchainService.getLaterBlock().timestamp || "",
         ]),
       )
     ) {
       this.checked.push(
         JSON.stringify([
-          this.blockchainService.getLatestBlock().prevHash,
+          this.blockchainService.getLatestBlock().previousHash,
           this.blockchainService.getLaterBlock().timestamp || "",
         ]),
       );

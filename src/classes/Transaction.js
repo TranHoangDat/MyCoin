@@ -15,7 +15,7 @@ export default class Transaction {
       tx.toAddress &&
       tx.amount &&
       (chain.getBalanceOfAddress(tx.fromAddress) >= tx.amount ||
-        tx.from === MintService.MINT_PUBLIC_ADDRESS) &&
+        tx.fromAddress === MintService.MINT_PUBLIC_ADDRESS) &&
       tx.isValid()
     );
   }
