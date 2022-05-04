@@ -13,15 +13,19 @@ import { useState } from "react";
 import { BlockchainService } from "./services/blockchain.service";
 import PrivateRoute from "./routers/PrivateRoute";
 import { ConnectionService } from "./services/connection.service";
+import { MintService } from "./services/mint.service";
 
 function App() {
   const [blockchainService, setBlockchainService] = useState();
   const [connectionService, setConnectionService] = useState();
 
   const handleSetWallet = wallet => {
+    const mintService = new MintService();
     const newBlockchainService = new BlockchainService(wallet);
     setBlockchainService(newBlockchainService);
-    setConnectionService(new ConnectionService(newBlockchainService));
+    setConnectionService(
+      new ConnectionService(mintService, newBlockchainService),
+    );
   };
 
   return (

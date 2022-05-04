@@ -1,5 +1,6 @@
 import EC from "elliptic";
 import crypto from "crypto";
+import { MintService } from "../services/mint.service";
 
 export default class Transaction {
   static copy(obj) {
@@ -13,7 +14,8 @@ export default class Transaction {
       tx.fromAddress &&
       tx.toAddress &&
       tx.amount &&
-      chain.getBalanceOfAddress(tx.fromAddress) >= tx.amount &&
+      (chain.getBalanceOfAddress(tx.fromAddress) >= tx.amount ||
+        tx.from === MintService.MINT_PUBLIC_ADDRESS) &&
       tx.isValid()
     );
   }
