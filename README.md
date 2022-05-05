@@ -2,6 +2,9 @@
 
 Hệ thống tiền điện tử FUR hoạt động dựa trên thuật toán Proof Of Work.
 
+![mineBlock](/frontend/public/images/mineBlock.png "mineBlock")
+![addBlock](/frontend/public/images/addBlock.png "addBlock")
+
 Hệ thống sử dụng một server như một signaling server để kết nối các node tham gia network lại với nhau.
 
 Sau đó các node có thể trao đổi trực tiếp với nhau mà không cần phải thông qua server.
@@ -33,3 +36,7 @@ You may also see any lint errors in the console.
 Savjee Coin [Simply Explained](https://www.youtube.com/c/Savjee).
 
 Build a p2p network [FreakCdev](https://dev.to/freakcdev297/build-a-p2p-network-and-release-your-cryptocurrency-clf).
+
+## Video
+
+[Video](https://youtu.be/-6XbG6ksi80)

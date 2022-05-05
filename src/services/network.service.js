@@ -283,7 +283,6 @@ export class NetworkService {
         ]),
       )
     ) {
-      console.log(2);
       this.checked.push(
         JSON.stringify([
           this.blockchainService.getLatestBlock().previousHash,

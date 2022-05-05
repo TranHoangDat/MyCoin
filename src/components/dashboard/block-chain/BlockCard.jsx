@@ -32,8 +32,6 @@ export default function BlockCard({
   timestamp,
   handleClick,
 }) {
-  console.log(timestamp);
-
   return (
     <Card onClick={handleClick} variant="outlined">
       <CardContent>

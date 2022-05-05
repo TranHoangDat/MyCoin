@@ -9,7 +9,6 @@ import BlockDetail from "./BlockDetai";
 export default function DashboardBlockchain() {
   const { blockchainService } = useContext(MainContext);
   const blocks = blockchainService.getBlocks();
-  console.log(blocks);
   const [currentBlockHash, setCurrentBlockHash] = useState();
 
   return (
