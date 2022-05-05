@@ -32,6 +32,14 @@ export default class Blockchain {
     return new Block(Date.parse("2022-01-01"), [], "0");
   }
 
+  getBlock(blockHash) {
+    for (let i = 0; i < this.chain.length; i++) {
+      if (this.chain[i].hash === blockHash) {
+        return { blockHeight: i, block: this.chain[i] };
+      }
+    }
+  }
+
   getLaterBlock() {
     return this.chain[this.chain.length - 2];
   }
@@ -60,14 +68,11 @@ export default class Blockchain {
       this.getLatestBlock().hash,
     );
 
-    block.mineBlock(this.difficulty);
-    this.chain.push(block);
+    this.addBlock(block);
     this.pendingTransactions = [];
   }
 
   addBlock(block) {
-    block.previousHash = this.getLatestBlock().hash;
-    block.hash = Block.calculateHash(block);
     block.mineBlock(this.difficulty);
     this.chain.push(block);
 
@@ -150,6 +155,16 @@ export default class Blockchain {
     }
 
     return txs;
+  }
+
+  getTransaction(txHash) {
+    for (const block of this.chain) {
+      for (const tx of block.transactions) {
+        if (tx.hash === txHash) {
+          return tx;
+        }
+      }
+    }
   }
 
   isChainValid() {

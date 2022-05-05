@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 
 const outerWrapperStyle = {
   width: "100%",
-  height: "100vh",
+  minHeight: "100vh",
   backgroundColor: "#f2f3f6",
 };
 

@@ -17,12 +17,20 @@ export class BlockchainService {
     return this.blockchainInstance.chain;
   }
 
+  getBlock(blockHash) {
+    return this.blockchainInstance.getBlock(blockHash);
+  }
+
   addTransaction(tx) {
     this.blockchainInstance.addTransaction(tx);
   }
 
   addBlock(block) {
     this.blockchainInstance.addBlock(block);
+  }
+
+  getTransaction(txHash) {
+    return this.blockchainInstance.getTransaction(txHash);
   }
 
   getPendingTransactions() {

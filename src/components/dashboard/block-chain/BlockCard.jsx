@@ -30,9 +30,12 @@ export default function BlockCard({
   previousHash,
   nonce,
   timestamp,
+  handleClick,
 }) {
+  console.log(timestamp);
+
   return (
-    <Card variant="outlined">
+    <Card onClick={handleClick} variant="outlined">
       <CardContent>
         <Box sx={containerStyle}>
           <Typography fontWeight={700}>Block {no}</Typography>

@@ -1,13 +1,16 @@
 import { Grid } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MainContext } from "../../../contexts/MainContext";
 import DashboardContent from "../DashboardContent";
 import Paper from "../Paper";
 import BlockCard from "./BlockCard";
+import BlockDetail from "./BlockDetai";
 
 export default function DashboardBlockchain() {
   const { blockchainService } = useContext(MainContext);
   const blocks = blockchainService.getBlocks();
+  console.log(blocks);
+  const [currentBlockHash, setCurrentBlockHash] = useState();
 
   return (
     <DashboardContent>
@@ -16,16 +19,18 @@ export default function DashboardBlockchain() {
           {blocks.map((block, index) => (
             <Grid item key={block.hash} xs={3}>
               <BlockCard
+                handleClick={() => setCurrentBlockHash(block.hash)}
                 no={index + 1}
                 hash={block.hash}
                 previousHash={block.previousHash}
                 nonce={block.nonce}
-                timeStamp={block.timestamp}
+                timestamp={block.timestamp}
               />
             </Grid>
           ))}
         </Grid>
       </Paper>
+      {currentBlockHash && <BlockDetail blockHash={currentBlockHash} />}
     </DashboardContent>
   );
 }

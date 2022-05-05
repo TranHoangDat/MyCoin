@@ -8,6 +8,7 @@ import {
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useContext } from "react";
 import { MainContext } from "../../../contexts/MainContext";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const cardStyle = {
   display: "flex",
@@ -77,9 +78,11 @@ export default function AccountCard() {
       </CardContent>
       <CardActions sx={cardActionsStyle}>
         <Typography sx={coinBalanceTypoStyle}>{balance} FUR</Typography>
-        <IconButton aria-label="copy" size="large">
-          <ContentCopyIcon />
-        </IconButton>
+        <CopyToClipboard text={publicKey}>
+          <IconButton aria-label="copy" size="large">
+            <ContentCopyIcon />
+          </IconButton>
+        </CopyToClipboard>
       </CardActions>
     </Card>
   );

@@ -56,12 +56,7 @@ export default function DashboardSendSection() {
     newTx.signTransaction(blockchainService.wallet.signingKeyObj);
 
     try {
-      const message = networkService.produceMessage(
-        "TYPE_CREATE_TRANSACTION",
-        newTx,
-      );
-      networkService.sendMessage(message);
-      blockchainService.addTransaction(newTx);
+      networkService.createTransaction(newTx);
       setOpenSuccessSnackbar(true);
     } catch (e) {
       setErrorMsg(e.message);

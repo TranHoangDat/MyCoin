@@ -10,6 +10,7 @@ import {
   Typography,
   typographyClasses,
 } from "@mui/material";
+import { MintService } from "../../../services/mint.service";
 
 const smallTextStyle = {
   [`& .${typographyClasses.root}`]: {
@@ -58,56 +59,58 @@ export default function TransactionListItem({
   fromAddress,
   toAddress,
   amount,
+  handleClick,
 }) {
   return (
-    <ListItem>
-      <ListItemIcon>
-        <Avatar>Tx</Avatar>
-      </ListItemIcon>
-      <Box sx={transactionIdWrapperStyle}>
-        <ListItemText
-          primary={
-            <Typography>
-              <Link href="#" underline="none">
-                {txHash}
-              </Link>
-            </Typography>
-          }
-          sx={normalTextStyle}
-        />
-        <ListItemText primary={"5 seconds ago"} sx={smallTextStyle} />
-      </Box>
-      <Box sx={addressesContainerStyle}>
-        <ListItemText
-          primary={
-            <Typography>
-              From{" "}
-              {fromAddress ? (
+    fromAddress !== MintService.MINT_PUBLIC_ADDRESS && (
+      <ListItem>
+        <ListItemIcon>
+          <Avatar>Tx</Avatar>
+        </ListItemIcon>
+        <Box sx={transactionIdWrapperStyle}>
+          <ListItemText
+            primary={
+              <Typography>
+                <Link underline="none">{txHash}</Link>
+              </Typography>
+            }
+            sx={normalTextStyle}
+            onClick={handleClick}
+          />
+          <ListItemText primary={"5 seconds ago"} sx={smallTextStyle} />
+        </Box>
+        <Box sx={addressesContainerStyle}>
+          <ListItemText
+            primary={
+              <Typography>
+                From{" "}
+                {fromAddress ? (
+                  <Link href="#" underline="none">
+                    {fromAddress}
+                  </Link>
+                ) : (
+                  "System (Block reward)"
+                )}
+              </Typography>
+            }
+            sx={normalTextStyle}
+          />
+          <ListItemText
+            primary={
+              <Typography>
+                To{" "}
                 <Link href="#" underline="none">
-                  {fromAddress}
+                  {toAddress}
                 </Link>
-              ) : (
-                "System (Block reward)"
-              )}
-            </Typography>
-          }
-          sx={normalTextStyle}
-        />
-        <ListItemText
-          primary={
-            <Typography>
-              To{" "}
-              <Link href="#" underline="none">
-                {toAddress}
-              </Link>
-            </Typography>
-          }
-          sx={normalTextStyle}
-        />
-      </Box>
-      <Box sx={chipWrapperStyle}>
-        <Chip label={`${amount} Fur`} />
-      </Box>
-    </ListItem>
+              </Typography>
+            }
+            sx={normalTextStyle}
+          />
+        </Box>
+        <Box sx={chipWrapperStyle}>
+          <Chip label={`${amount} Fur`} />
+        </Box>
+      </ListItem>
+    )
   );
 }
