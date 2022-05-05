@@ -2,8 +2,8 @@
 
 Hệ thống tiền điện tử FUR hoạt động dựa trên thuật toán Proof Of Work.
 
-![mineBlock](/frontend/public/images/mineBlock.png "mineBlock")
-![addBlock](/frontend/public/images/addBlock.png "addBlock")
+![mineBlock](/public/images/mineBlock.png "mineBlock")
+![addBlock](/public/images/addBlock.png "addBlock")
 
 Hệ thống sử dụng một server như một signaling server để kết nối các node tham gia network lại với nhau.
 
