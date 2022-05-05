@@ -1,15 +1,18 @@
 # Project MyCoin - CNM - 18_3
 
-Hệ thống tiền điện tử FUR hoạt động dựa trên thuật toán Proof Of Work.\
-Hệ thống sử dụng một server như một signaling server để kết nối các node tham gia network lại với nhau.\
-Sau đó các node có thể trao đổi trực tiếp với nhau mà không cần phải thông qua server.\
-Chức năng bao gồm:\
+Hệ thống tiền điện tử FUR hoạt động dựa trên thuật toán Proof Of Work.
 
-1.  Tạo wallet.\
-2.  Đăng nhập bằng wallet.\
-3.  Xem thống kê tài khoản.\
-4.  Gởi coin cho một địa chỉ khác.\
-5.  Xem lịch sử giao dịch cơ bản.\
+Hệ thống sử dụng một server như một signaling server để kết nối các node tham gia network lại với nhau.
+
+Sau đó các node có thể trao đổi trực tiếp với nhau mà không cần phải thông qua server.
+
+Chức năng bao gồm:
+
+1.  Tạo wallet.
+2.  Đăng nhập bằng wallet.
+3.  Xem thống kê tài khoản.
+4.  Gởi coin cho một địa chỉ khác.
+5.  Xem lịch sử giao dịch cơ bản.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
